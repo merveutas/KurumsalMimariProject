@@ -1,29 +1,26 @@
-﻿@model KurumsalMimari.MvcWebUI.Models.ProductListVieModel
-
+﻿
 @{
     ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<head>
 <h1>Index</h1>
-</head>
 
-<body>
-    <div>
-        <table>
+<div>
+    <table class="table table-responsive">
+        <tr>
+            <td>Product Name</td>
+            <td>Unit Price</td>
+            <td>Units In Stock</td>
+        </tr>
+        @foreach (var item in Model.Products)
+        {
             <tr>
-                <td>Product Name</td>
-                <td>Unit Price</td>
-                <td>Units In Stock</td>
+                <td>@item.ProductName</td>
+                <td>@item.UnitPrice</td>
+                <td>@item.UnitsInStock</td>
             </tr>
-            @foreach (var item in Model.Products)
-            {
-                <tr>
-                    <td>@item.ProductName</td>
-                    <td>@item.UnitPrice</td>
-                    <td>@item.UnitsInStock</td>
-                </tr>
-            }
-        </table>
-    </div>
-</body>
+        }
+    </table>
+</div>
+
