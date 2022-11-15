@@ -4,4 +4,10 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\KurumsalMimari.Core\KurumsalMimari.Core.csproj" />
+    <ProjectReference Include="..\KurumsalMimari.DataAccess\KurumsalMimari.DataAccess.csproj" />
+    <ProjectReference Include="..\KurumsalMimari.Entities\KurumsalMimari.Entities.csproj" />
+  </ItemGroup>
+
 </Project>

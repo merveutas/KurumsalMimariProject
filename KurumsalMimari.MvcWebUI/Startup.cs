@@ -1,3 +1,7 @@
+using KurumsalMimari.Business.Abstract;
+using KurumsalMimari.Business.Concrete;
+using KurumsalMimari.DataAccess.Abstract;
+using KurumsalMimari.DataAccess.Concrete.EntityFramework;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -24,6 +28,12 @@ namespace KurumsalMimari.MvcWebUI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddScoped<IProductService, ProductManager>();
+            services.AddScoped<IProductDal, EfProductDal>();
+
+            services.AddScoped<ICategorytService, CategoryManager>();
+            services.AddScoped<ICategoryDal, EfCategoryDal>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,7 +60,7 @@ namespace KurumsalMimari.MvcWebUI
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Product}/{action=Index}/{id?}");
             });
         }
     }
