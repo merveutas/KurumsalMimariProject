@@ -11,7 +11,7 @@ namespace KurumsalMimari.Entities.Concrete
     public class Category : IEntity
     {
         [Key]
-        public int CategorytId { get; set; }
+        public int CategoryID { get; set; }
         public string CategoryName { get; set; }
     }
 }

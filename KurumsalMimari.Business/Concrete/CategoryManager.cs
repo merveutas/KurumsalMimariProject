@@ -22,7 +22,7 @@ namespace KurumsalMimari.Business.Concrete
 
         public List<Category> GetAll()
         {
-            throw new NotImplementedException();
+            return _categoryDal.GetList();
         }
     }
 }

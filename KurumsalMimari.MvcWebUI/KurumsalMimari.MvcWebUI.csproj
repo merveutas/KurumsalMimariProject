@@ -12,8 +12,4 @@
     <ProjectReference Include="..\KurumsalMimari.Business\KurumsalMimari.Business.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Middlewares\" />
-  </ItemGroup>
-
 </Project>

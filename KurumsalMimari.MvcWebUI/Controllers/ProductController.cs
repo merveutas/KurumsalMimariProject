@@ -1,6 +1,7 @@
 ﻿using KurumsalMimari.Business.Abstract;
 using KurumsalMimari.MvcWebUI.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace KurumsalMimari.MvcWebUI.Controllers
 {
@@ -12,12 +13,13 @@ namespace KurumsalMimari.MvcWebUI.Controllers
             _productService = productService;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int page=1,int category=0)
         {
-            var products = _productService.GetAll();
+            int pageSize = 10;
+            var products = _productService.GetByCategory(category);
             ProductListVieModel model = new ProductListVieModel
             {
-                Products = products
+                Products = products.Skip((page - 1)*pageSize).Take(pageSize).ToList()
             };
 
             return View(model);
