@@ -2,8 +2,10 @@ using KurumsalMimari.Business.Abstract;
 using KurumsalMimari.Business.Concrete;
 using KurumsalMimari.DataAccess.Abstract;
 using KurumsalMimari.DataAccess.Concrete.EntityFramework;
+using KurumsalMimari.MvcWebUI.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -34,6 +36,14 @@ namespace KurumsalMimari.MvcWebUI
             services.AddScoped<ICategorytService, CategoryManager>();
             services.AddScoped<ICategoryDal, EfCategoryDal>();
 
+            services.AddSingleton<ICartSessionServices, CartSessionService>();
+            services.AddSingleton<ICartService, CartService>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+
+            services.AddSession();
+            services.AddDistributedMemoryCache();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,6 +67,8 @@ namespace KurumsalMimari.MvcWebUI
             app.UseFileServer();
            
             app.UseRouting();
+
+            app.UseSession();
 
             app.UseAuthorization();
 

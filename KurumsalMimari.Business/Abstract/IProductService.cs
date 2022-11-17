@@ -14,5 +14,6 @@ namespace KurumsalMimari.Business.Abstract
         void Add(Product product);
         void Update(Product product);
         void Delete(int productID);
+        Product GetById(int productId);
     }
 }

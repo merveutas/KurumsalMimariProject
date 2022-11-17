@@ -37,7 +37,7 @@ namespace KurumsalMimari.Core.DataAccess.EntityFramework
         {
             using (var context = new TContext())
             {
-                return context.Set<TEntity>().SingleOrDefault();
+                return filter == null ? context.Set<TEntity>().SingleOrDefault() : context.Set<TEntity>().Where(filter).SingleOrDefault();
             }
         }
 
