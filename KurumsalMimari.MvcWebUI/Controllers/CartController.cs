@@ -1,4 +1,5 @@
 ﻿using KurumsalMimari.Business.Abstract;
+using KurumsalMimari.MvcWebUI.Models;
 using KurumsalMimari.MvcWebUI.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,6 +29,27 @@ namespace KurumsalMimari.MvcWebUI.Controllers
             TempData.Add("message", string.Format("Your product, {0}, as successfully added to the cart!", productToBeAdded.ProductName));
 
             return RedirectToAction("Index", "Product");
+        }
+
+        public ActionResult List()
+        {
+            var cart = _cartSessionServices.GetCart();
+            CartSummaryViewModel cartListViewModel = new CartSummaryViewModel
+            {
+                Cart = cart
+            };
+            return View(cartListViewModel);
+        }
+
+        public ActionResult Remove(int productId)
+        {
+            var cart = _cartSessionServices.GetCart();
+            _cartService.RemoveFromCart(cart,productId);
+            _cartSessionServices.SetCard(cart);
+
+            TempData.Add("message", string.Format("Your product was successfully removed from the cart!"));
+
+            return RedirectToAction("List");
         }
     }
 }

@@ -26,7 +26,7 @@ namespace KurumsalMimari.MvcWebUI.Services
 
         public void SetCard(Cart cart)
         {
-            _httpContextAccessor.HttpContext.Session.SetObject("cart", new Cart());
+            _httpContextAccessor.HttpContext.Session.SetObject("cart", cart);
         }
     }
 }
