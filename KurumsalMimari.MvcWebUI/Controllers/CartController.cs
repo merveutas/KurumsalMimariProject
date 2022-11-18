@@ -1,4 +1,5 @@
 ﻿using KurumsalMimari.Business.Abstract;
+using KurumsalMimari.Entities.Concrete;
 using KurumsalMimari.MvcWebUI.Models;
 using KurumsalMimari.MvcWebUI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -23,7 +24,7 @@ namespace KurumsalMimari.MvcWebUI.Controllers
             var productToBeAdded = _productService.GetById(productId);
 
             var cart = _cartSessionServices.GetCart();
-            _cartService.AddToCard(cart,productToBeAdded);
+            _cartService.AddToCard(cart, productToBeAdded);
             _cartSessionServices.SetCard(cart);
 
             TempData.Add("message", string.Format("Your product, {0}, as successfully added to the cart!", productToBeAdded.ProductName));
@@ -44,12 +45,31 @@ namespace KurumsalMimari.MvcWebUI.Controllers
         public ActionResult Remove(int productId)
         {
             var cart = _cartSessionServices.GetCart();
-            _cartService.RemoveFromCart(cart,productId);
+            _cartService.RemoveFromCart(cart, productId);
             _cartSessionServices.SetCard(cart);
 
             TempData.Add("message", string.Format("Your product was successfully removed from the cart!"));
 
             return RedirectToAction("List");
+        }
+
+        public ActionResult Complete()
+        {
+            var shippingDetailsViewModel = new ShippingDetailsViewModel
+            {
+                ShippingDetails = new ShippingDetails()
+            };
+            return View(shippingDetailsViewModel);
+        }
+        [HttpPost]
+        public ActionResult Complete(ShippingDetails shippingDetails)
+        {
+            if (!ModelState.IsValid)
+                return View();
+
+            TempData.Add("message", string.Format("{0} you order is in process", shippingDetails.FirstName));
+            return View();
+
         }
     }
 }
