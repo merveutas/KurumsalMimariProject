@@ -2,11 +2,14 @@ using KurumsalMimari.Business.Abstract;
 using KurumsalMimari.Business.Concrete;
 using KurumsalMimari.DataAccess.Abstract;
 using KurumsalMimari.DataAccess.Concrete.EntityFramework;
+using KurumsalMimari.MvcWebUI.Entities;
 using KurumsalMimari.MvcWebUI.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -14,6 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 
 namespace KurumsalMimari.MvcWebUI
 {
@@ -40,9 +44,13 @@ namespace KurumsalMimari.MvcWebUI
             services.AddSingleton<ICartService, CartService>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
+            services.AddDbContext<CustomIdentityDbContext>(options => options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Databese=Nortwind;Trusted_Connection=true"));
+            services.AddIdentity<CustomIdentityUser, CustomIdentityRole>().AddEntityFrameworkStores<CustomIdentityDbContext>().AddDefaultTokenProviders();
 
             services.AddSession();
             services.AddDistributedMemoryCache();
+
+
 
         }
 
@@ -67,6 +75,8 @@ namespace KurumsalMimari.MvcWebUI
             app.UseFileServer();
            
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseSession();
 

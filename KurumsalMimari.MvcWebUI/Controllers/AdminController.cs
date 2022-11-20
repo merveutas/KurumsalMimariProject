@@ -1,10 +1,12 @@
 ﻿using KurumsalMimari.Business.Abstract;
 using KurumsalMimari.Entities.Concrete;
 using KurumsalMimari.MvcWebUI.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KurumsalMimari.MvcWebUI.Controllers
 {
+    [Authorize]
     public class AdminController : Controller
     {
         IProductService _productService;
